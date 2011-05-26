@@ -1,17 +1,19 @@
 $(function(){
-	$('.items li').scrollParallax({
+	/* main background image. moves against the direction of scroll*/
+	$('.item').scrollParallax({
 		'speed': -0.2
 	});
 
-	$('.items .inner').scrollParallax({
+	/* inner items, moves slightly faster than the background */
+	$('.item .inner').scrollParallax({
 		'speed': -0.5
 	});
 	
-	$('.items .inner-lev1').scrollParallax({
+	/* two additional samples inside item2, both moving with direction of scroll*/
+	$('.item .inner-lev1').scrollParallax({
 		'speed': 0.2
-	});
-	
-	$('.items .inner-lev2').scrollParallax({
+	});	
+	$('.item .inner-lev2').scrollParallax({
 		'speed': 0.5
 	});
 });

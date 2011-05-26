@@ -72,7 +72,7 @@
 		var settings = {
 			'speed': 0.2,
 			'axis': 'x,y',
-			'debug': false,
+			'debug': false
 		}
 
 		function debug(msg){
@@ -113,7 +113,7 @@
 					//calculate new position
 					if(settings.axis.match(/x/)){
 						var Xpos = offset.left - $(window).scrollLeft();
-						var newXPos = (-(Xpos) * settings.speed) + currentXPos
+						var newXPos = (-(Xpos) * settings.speed) + currentXPos;
 					}else{
 						var newXPos = currentXPos;
 					}
