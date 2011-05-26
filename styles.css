@@ -1,0 +1,61 @@
+.items{
+	overflow:hidden;
+}
+	.item{
+		width:100%;
+		overflow:hidden;
+		position:relative;
+		height:768px;
+	}
+		.inner,.inner-lev1,.inner-lev2{
+			width:100%;
+			height:100%;
+			position:absolute;
+		}
+			.content{
+				background:rgba(255,255,255,0.9);
+				background:white;
+				padding:20px;
+				width:300px;
+				margin:30px;
+			}
+		
+	.item1{
+		background: white url(http://lorempixum.com/1024/768/city/1) 0px 0px fixed no-repeat;
+	}
+		.inner1{
+			background: url(http://lorempixum.com/200/200/people/1) 400px 200px fixed no-repeat;
+		}
+	.item2{
+		background: white url(http://lorempixum.com/1024/768/city/2) 0px 0px fixed no-repeat;
+	}
+		.inner2{
+			background: url(http://lorempixum.com/200/200/people/2) 400px 200px fixed no-repeat;
+		}
+		.inner2a{
+			background: url(http://lorempixum.com/200/200/sports/1) 500px 250px fixed no-repeat;
+		}
+		.inner2b{
+			background: url(http://lorempixum.com/200/200/sports/2) 600px 300px fixed no-repeat;
+		}
+	.item3{
+		background: white url(http://lorempixum.com/1024/768/city/3) 0px 0px fixed no-repeat;
+	}
+		.inner3{
+			background: url(http://lorempixum.com/200/200/people/3) 400px 200px fixed no-repeat;
+		}
+	.item4{
+		background: white url(http://lorempixum.com/1024/768/city/4) 0px 0px fixed no-repeat;
+	}
+		.inner4{
+			background: url(http://lorempixum.com/200/200/people/4) 400px 200px fixed no-repeat;
+		}
+	.item5{
+		background: white url(http://lorempixum.com/1024/768/city/5) 0px 0px fixed no-repeat;
+	}
+		.inner5{
+			background: url(http://lorempixum.com/200/200/people/5) 400px 200px fixed no-repeat;
+		}
+
+		
+	
