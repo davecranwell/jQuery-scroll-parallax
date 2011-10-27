@@ -84,7 +84,7 @@
 		return this.each(function() {
 			//defined accessible $this var in standard way for use within functions
 			var $this = $(this),
-			//timestamp,last position for the interval & FPS ~= 30
+				//timestamp,last position for the interval & FPS ~= 30
                 ts,FPS = 34,lastPos = {x:0,y:0},intervalActive,            
             	//find current position so parallax can be relative to it
                 currentPosArray=$this.css("backgroundPosition").split(" "),
@@ -136,7 +136,7 @@
                 }else{
                     clearInterval(ts);
                     intervalActive = false;
-                    $(window).bind('scroll',onScroll);
+                    $(window).bind('scroll.parallax',onScroll);
                 }
 			}
             
@@ -144,13 +144,13 @@
                 if($this.hasClass("inview")){
                     if(!intervalActive){	
                         ts = setInterval(updateElemPos,FPS);
-                        $(window).unbind('scroll');
+                        $(window).unbind('scroll.parallax');
                     }
                 }
             }
             
 			//recalculate position on scroll
-			$(window).bind('scroll',onScroll);
+			$(window).bind('scroll.parallax',onScroll);
 		});
 	};
 	
