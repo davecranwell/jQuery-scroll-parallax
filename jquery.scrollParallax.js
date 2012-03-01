@@ -83,8 +83,14 @@
 		
 		return this.each(function() {
 			//defined accessible $this var in standard way for use within functions
-			var $this = $(this);
-			
+			var $this = $(this),
+				//timestamp,last position for the interval & FPS ~= 30
+                ts,FPS = 34,lastPos = {x:0,y:0},intervalActive,            
+            	//find current position so parallax can be relative to it
+                currentPosArray=$this.css("backgroundPosition").split(" "),
+                currentXPos=parseInt(currentPosArray[0].replace(/[^0-9\-]/g, "")),
+                currentYPos=parseInt(currentPosArray[1].replace(/[^0-9\-]/g, ""));
+            
 			//extend options in standard way
 			if (options) {
 				$.extend(settings, options);
@@ -99,37 +105,52 @@
 					debug("out of view");
 				}
 			});
-	
-			//find current position so parallax can be relative to it
-			var currentPosArray=$this.css("backgroundPosition").split(" ");
-			var currentXPos=parseInt(currentPosArray[0].replace(/[^0-9\-]/g, ""));
-			var currentYPos=parseInt(currentPosArray[1].replace(/[^0-9\-]/g, ""));
-						
-			//recalculate position on scroll
-			$(window).bind('scroll', function(){
-				if($this.hasClass("inview")){			
-					var offset = $this.offset();
+			
+            function updateElemPos(){
+				var newXPos,newYPos,
+                    offset = $this.offset();
 
-					//calculate new position
-					if(settings.axis.match(/x/)){
-						var Xpos = offset.left - $(window).scrollLeft();
-						var newXPos = (-(Xpos) * settings.speed) + currentXPos;
-					}else{
-						var newXPos = currentXPos;
-					}
-					if(settings.axis.match(/y/)){
-						var Ypos = offset.top - $(window).scrollTop();
-						var newYPos = (-(Ypos) * settings.speed) + currentYPos;
-					}else{
-						var newYPos = currentYPos;
-					}
-					
-					debug("new X position: "+ newXPos);
-					debug("new Y position: "+ newYPos);
-					
-					$this.css({'backgroundPosition':  parseInt(newXPos) + "px " + parseInt(newYPos) +"px"}); 
-				}
-			});
+                //calculate new position
+                newXPos = (settings.axis.match(/x/))?
+                    parseInt((-(offset.left - $(window).scrollLeft()) * settings.speed) + currentXPos) + "px":
+                    currentPosArray[0];
+                
+                newYPos = (settings.axis.match(/y/))?
+                    parseInt((-(offset.top - $(window).scrollTop()) * settings.speed) + currentYPos) + "px":
+                    currentPosArray[1];
+                
+                if(typeof intervalActive == 'undefined'){
+                    lastPos.x = newXPos;
+                    lastPos.y = newYPos;
+                }
+                
+                intervalActive = true;
+                
+                debug("new X position: "+ newXPos);
+                debug("new Y position: "+ newYPos);
+                
+                if((newXPos !== lastPos.x) || (newYPos !== lastPos.y)){
+                    $this.css({'backgroundPosition':  newXPos + " " + newYPos});
+                    lastPos.x = newXPos;
+                    lastPos.y = newYPos;
+                }else{
+                    clearInterval(ts);
+                    intervalActive = false;
+                    $(window).bind('scroll.parallax',onScroll);
+                }
+			}
+            
+            function onScroll(){
+                if($this.hasClass("inview")){
+                    if(!intervalActive){	
+                        ts = setInterval(updateElemPos,FPS);
+                        $(window).unbind('scroll.parallax');
+                    }
+                }
+            }
+            
+			//recalculate position on scroll
+			$(window).bind('scroll.parallax',onScroll);
 		});
 	};
 	
